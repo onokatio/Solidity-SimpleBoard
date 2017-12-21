@@ -1,14 +1,30 @@
-pragma solidity ^0.4.19;
+pragma solidity 0.4.19;
 
-contract SimpleBoard {
-    string[] response;
-    function postRes(string input) public {
-        response.push(input);
+contract Simpleboard {
+    struct Topic {
+        address owner;
+        string title;
     }
-    function getResamount() public constant returns(uint){
-        return response.length;
+    struct Response {
+        address owner;
+        string str;
     }
-    function getRes(uint num) public constant returns (string) {
-        return response[num];
+    Response[] responses;
+    
+    function postRes(string str) public {
+        Response memory temp;
+        temp.owner = msg.sender;
+        temp.str = str;
+        
+        responses.push(temp);
+    }
+    function getResponsesAmount() public constant returns(uint){
+        return responses.length;
+    }
+    function getResponseOwner(uint8 resNum) public constant returns (address) {
+        return responses[resNum].owner;
+    }
+    function getResponseStr(uint8 resNum) public constant returns (string) {
+        return responses[resNum].str;
     }
 }
