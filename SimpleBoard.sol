@@ -11,7 +11,9 @@ contract Simpleboard {
     }
     Response[] responses;
     
-    function postRes(string str) public {
+    function postRes(string str) external {
+        if (responses.length > 100) return;
+
         Response memory temp;
         temp.owner = msg.sender;
         temp.str = str;
